@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location de voiture</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #343a40;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Image de fond avec effet de flou */
+        .blur-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/assets/images/car-background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            z-index: -1;
+            filter: blur(8px); /* Appliquer le flou */
+        }
+
+        /* Superposition pour atténuer l'image de fond */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4); /* Superposition semi-transparente */
+            z-index: 0;
+        }
+
+        .navbar {
+            background-color: rgba(0, 123, 255, 0.9);
+            z-index: 1;
+        }
+
+        .navbar-brand, .nav-link {
+            color: white !important;
+        }
+
+        .navbar-nav .nav-item.active .nav-link {
+            color: #ffc107 !important;
+        }
+
+        .welcome-hero {
+            position: relative;
+            z-index: 1;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .welcome-hero h2 {
+            font-size: 2.5rem;
+        }
+
+        .welcome-hero h2 span {
+            color: #ffc107;
+        }
+
+        .welcome-btn {
+            background-color: #ffc107;
+            color: #343a40;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .service {
+            padding: 50px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+		.section-header h2 {
+		           text-align: center;
+		           margin-bottom: 30px;
+		           font-size: 2.5rem;
+		           color: #ffc107; /* Couleur voyante pour le titre */
+		       }
+
+		       .section-header p {
+		           text-align: center;
+		           font-size: 1.25rem;
+		           color: #ffffff; /* Couleur blanche pour le sous-titre */
+		       }
+
+
+        .single-service-item {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            transition: transform 0.3s;
+        }
+
+        .single-service-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .footer-top {
+            background-color: #343a40;
+            padding: 20px;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .footer-top a {
+            color: #ffc107;
+            text-decoration: none;
+        }
+
+        .footer-top p {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Image de fond floue -->
+    <div class="blur-background"></div>
+
+    <!-- Superposition pour le contenu -->
+    <div class="overlay"></div>
+
+    <!-- Navigation Bar -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <a class="navbar-brand" href="#">Location de voiture</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Accueil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Profil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/rentals">Locations</a>
+                        </li>
+                       <li class="nav-item">
+                            <a class="nav-link" href="/admin/addV" id="add-vehicle-btn">Ajouter voiture</a>
+                        </li>
+						<li class="nav-item">
+						    <form action="/logout" method="post" class="form-inline" style="display: inline;">
+						        <button type="submit" class="btn btn-link nav-link">Se déconnecter</button>
+						    </form>
+						</li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="welcome-hero">
+        <div class="container">
+            <div class="welcome-hero-txt">
+                <h2>Bienvenue dans notre agence <span>de location de voiture</span></h2>
+                <p>Cherchez et louez une voiture à votre goût</p>
+                <a href="#vehicle-section" class="welcome-btn">Voitures disponibles</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vehicle Management Section -->
+    <section id="vehicle-section" class="service">
+        <div class="container">
+            <div class="section-header">
+                <h2>Voitures <span>Disponibles</span></h2>
+                <p>Voici les voitures disponibles</p>
+            </div>
+
+            <div class="row">
+                <!-- Boucle Thymeleaf pour les véhicules -->
+                <div class="col-md-4" th:each="vehicle : ${vehicle}">
+                    <div class="single-service-item">
+                        <h2>Véhicule : <span th:text="${vehicle.modele}"></span></h2>
+                        <p>Marque: <span th:text="${vehicle.marque}"></span></p>
+                        <p>Année de fabrication: <span th:text="${vehicle.annee}"></span></p>
+                        <p>Tarif horaire: <span th:text="${vehicle.tarifHoraire}">0.00</span>/hr</p>
+                        <p>Date de mise en service: <span th:text="${#dates.format(vehicle.dateMiseEnService, 'yyyy-MM-dd')}"></span></p>
+                        <p>Immatriculation: <span th:text="${vehicle.immatriculation}"></span></p>
+                        <div class="button-group">
+                            <div class="mb-2">
+                                <a class="btn btn-primary" th:href="@{/admin/edit/{id}(id=${vehicle.id})}">Modifier</a>
+                            </div>
+                            <div class="mb-2">
+                                <a class="btn btn-danger" th:onclick="'return confirmDelete(' + ${vehicle.id} + ')'">Supprimer</a>
+                            </div>
+                            <div class="mb-2">
+                                <a class="btn btn-success">Louer cette voiture</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="contact">
+        <div class="footer-top">
+            <div class="footer-logo">
+                <a href="#">Car Rental</a>
+            </div>
+            <p>2024 Car Rental. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Confirmation pour la suppression -->
+    <script>
+        function confirmDelete(vehicleId) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer cette voiture ?')) {
+                window.location.href = '/admin/delete/' + vehicleId;
+            }
+            return false;
+        }
+    </script>
+</body>
+</html>

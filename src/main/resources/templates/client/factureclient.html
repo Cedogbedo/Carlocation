@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails du Retour</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .details-container {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px auto;
+            max-width: 800px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .details-container h2 {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        .details-container p {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .total-fees {
+            font-size: 18px;
+            font-weight: bold;
+            color: #d9534f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="details-container">
+            <h2>Détails de la location</h2>
+
+            <!-- Client Details -->
+            <p><strong>Client :</strong> <span th:text="${rental.user.username}"></span></p>
+            <p><strong>Contact :</strong> <span th:text="${rental.user.phonenumber}"></span></p>
+            <p><strong>Email :</strong> <span th:text="${rental.user.email}"></span></p>
+
+            <!-- Vehicle Details -->
+            <p><strong>Véhicule :</strong> <span th:text="${rental.vehicle.marque}"></span> - <span th:text="${rental.vehicle.modele}"></span></p>
+
+            <!-- Rental Dates -->
+            <p><strong>Début de location :</strong> <span th:text="${#temporals.format(rental.dateDebut, 'yyyy-MM-dd HH:mm')}"></span></p>
+            <p><strong>Fin de location :</strong> <span th:text="${#temporals.format(rental.dateFin, 'yyyy-MM-dd HH:mm')}"></span></p>
+
+            <!-- Chauffeur Info -->
+            <p><strong>Chauffeur :</strong> <span th:text="${rental.chauffeur ? 'Oui' : 'Non'}"></span></p>
+
+            <!-- Total Fees -->
+            <p class="total-fees">Montant total : <span th:text="${totalFees}"></span> FCFA</p>
+
+          <div class="mb-2">
+			<div>
+			<a href="/admin/home" class="btn btn-primary">Véhicule retourné</a>
+			 </div>
+		</div>
+        </div>
+    </div>
+</body>
+</html>

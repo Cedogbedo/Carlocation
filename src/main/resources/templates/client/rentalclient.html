@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes Locations</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .single-service-item {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 15px;
+        }
+
+        .button-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .button-group .mb-2 {
+            margin-bottom: 10px;
+        }
+
+        .single-service-item h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .single-service-item p {
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Mes Locations</h1>
+        <div class="row">
+            <div class="col-md-4" th:each="rental : ${rentals}">
+                <div class="single-service-item">
+					
+					
+					<!-- Rental Details -->
+				    <h2>Client: <span th:text="${rental.user.username}"></span></h2>
+					<p>Contact: <span th:text="${rental.user.phonenumber}"></span></p>
+			 		<p>Email: <span th:text="${rental.user.email}"></span></p>
+                    <!-- Rental Details -->
+                    <h2>Marque: <span th:text="${rental.vehicle.marque}"></span></h2>
+                    <p>Modèle: <span th:text="${rental.vehicle.modele}"></span></p>
+
+                    <!-- Rental Dates -->
+                    <p>Début de location: <span th:text="${#temporals.format(rental.dateDebut, 'yyyy-MM-dd HH:mm')}"></span></p>
+                    <p>Fin de location: <span th:text="${#temporals.format(rental.dateFin, 'yyyy-MM-dd HH:mm')}"></span></p>
+
+                    <!-- Chauffeur Info -->
+                    <p>Chauffeur: <span th:text="${rental.chauffeur ? 'Oui' : 'Non'}"></span></p>
+
+                    <!-- Action Buttons (for admin to return vehicle) 
+                    <div class="button-group">
+                        <div class="mb-2">
+							<div class="mb-2">
+								<a th:href="@{'/client/return/' + ${rental.id}}" class="btn btn-primary">Véhicule retourné</a>
+							  </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

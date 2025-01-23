@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Vehicle</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+        .error-text {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Ajouter une Voiture</h2>
+        <form action="/admin/addV" th:action="@{/admin/addV}" th:object="${vehicleDto}" method="post">
+            <div class="form-group">
+                <label for="modele">Modèle:</label>
+                <input type="text" id="modele" th:field="${vehicleDto.modele}" class="form-control" required>
+                <div class="error-text" th:if="${#fields.hasErrors('modele')}" th:errors="${vehicleDto.modele}">Modèle Error</div>
+            </div>
+            <div class="form-group">
+                <label for="marque">Marque:</label>
+                <input type="text" id="marque" th:field="${vehicleDto.marque}" class="form-control" required>
+                <div class="error-text" th:if="${#fields.hasErrors('marque')}" th:errors="${vehicleDto.marque}">Marque Error</div>
+            </div>
+            <div class="form-group">
+                <label for="annee">Année de fabrication:</label>
+                <input type="number" id="annee" th:field="${vehicleDto.annee}" class="form-control" required>
+                <div class="error-text" th:if="${#fields.hasErrors('annee')}" th:errors="${vehicleDto.annee}">Année Error</div>
+            </div>
+			<div class="form-group">
+			        <label for="dateMiseEnService">Date de mise en service:</label>
+			        <input type="date" id="dateMiseEnService" th:field="${vehicleDto.dateMiseEnService}" class="form-control" required placeholder="yyyy-mm-dd">
+			        <div class="error-text" th:if="${#fields.hasErrors('dateMiseEnService')}" th:errors="${vehicleDto.dateMiseEnService}">Date de mise en service Error</div>
+			</div>
+			
+            <div class="form-group">
+                <label for="tarifHoraire">Tarif Horaire:</label>
+                <input type="number" id="tarifHoraire" th:field="${vehicleDto.tarifHoraire}" class="form-control" required>
+                <div class="error-text" th:if="${#fields.hasErrors('tarifHoraire')}" th:errors="${vehicleDto.tarifHoraire}">Tarif Error</div>
+            </div>
+            <div class="form-group">
+                <label for="immatriculation">Immatriculation:</label>
+                <input type="text" id="immatriculation" th:field="${vehicleDto.immatriculation}" class="form-control" required>
+                <div class="error-text" th:if="${#fields.hasErrors('immatriculation')}" th:errors="${vehicleDto.immatriculation}">Immatriculation Error</div>
+            </div>
+            <button type="submit" class="btn btn-primary">Ajouter Voiture</button>
+			<button type="cancel" class="btn" href= "/admin">Annuler</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

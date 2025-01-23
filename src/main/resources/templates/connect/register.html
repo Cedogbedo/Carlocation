@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription - Location de Voitures</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: url('/assets/images/car-background.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: rgba(0, 123, 255, 0.8); /* Bleu semi-transparent */
+        }
+
+        .navbar a {
+            color: #f0f0f0;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 10px 20px;
+        }
+
+        .navbar a:hover {
+            background-color: #0056b3;
+            border-radius: 5px;
+        }
+
+        .register-section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #141313;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .register-box {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .register-box h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .register-box label {
+            display: block;
+            text-align: left;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .register-box input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .register-box input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .register-box input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .register-box a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: 500;
+        }
+
+        .register-box a:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <!-- Barre de navigation -->
+    <header>
+        <nav class="navbar">
+            <a href="/">Location de Voitures</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <!-- Section Inscription -->
+    <section class="register-section">
+        <div class="register-box">
+            <h1>Inscription</h1>
+            <form th:action="@{/registration}" th:object="${user}" method="post">
+                <label for="email">Adresse e-mail :</label>
+                <input type="email" id="email" th:field="*{email}" required/>
+
+                <label for="username">Nom d'utilisateur :</label>
+                <input type="text" id="username" th:field="*{username}" required/>
+				
+				<label for="phonenumber">Numéro de téléphone :</label>
+				 <input type="text" id="phonenumber" th:field="*{phonenumber}" required/>
+
+                <label for="password">Mot de passe :</label>
+                <input type="password" id="password" th:field="*{password}" required/>
+
+                <label for="confirmPassword">Confirmer le mot de passe :</label>
+                <input type="password" id="confirmPassword" th:field="*{confirmPassword}" required/>
+
+                <input type="submit" value="S'enregistrer"/>
+            </form>
+            <p>
+                <a th:href="@{/login}">Vous avez déjà un compte ? Connectez-vous ici</a>
+            </p>
+        </div>
+    </section>
+</body>
+</html>
